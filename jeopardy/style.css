@@ -1,0 +1,343 @@
+body {
+  margin: 0;
+  font: 13px arial, sans-serif;
+  background: #ececec;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+button {
+  font-size: inherit;
+  border: none;
+  background: #ccc;
+  box-shadow: 3px 3px 0 #888;
+  cursor: pointer;
+}
+button:hover {
+  background: #cfcfcf;
+}
+button:disabled {
+  box-shadow: none;
+}
+button:active {
+  position: relative;
+  top: 3px;
+  left: 3px;
+  box-shadow: none;
+}
+select {
+  border: none;
+  padding: 5px 10px;
+}
+#config, #promo, #board, #controls, #pass, #correct, #incorrect,
+.tile.active .value, .tile.used .value,
+.pending-config #players,
+.tile .question, .tile .answer, #new-game,
+#info, #register, #waitlisted, #buzzer, #answering, #status-correct, #status-incorrect,
+#disconnected, #disconnected.connecting button {
+  display: none;
+}
+.pending-config #config,
+.pending-config #promo,
+.pending-players #board,
+.pending-question #board,
+.pending-answer #board, .pending-answer #controls,
+.player-active #board, .player-active #controls,
+.game-over #controls,
+.none #register,
+.waitlisted #info, .waitlisted #waitlisted,
+.playing #info,
+.ready #info, .ready #buzzer,
+.queued #info, .queued #buzzer,
+.answering #info, .answering #answering,
+.correct #info, .correct #status-correct,
+.incorrect #info, .incorrect #status-incorrect,
+.final #info,
+#disconnected.connecting, #disconnected.countdown, #disconnected.failed {
+  display: block;
+}
+.pending-answer #pass,
+.pending-answer .active .question, .pending-answer .active .answer,
+.player-active #correct, .player-active #incorrect,
+.player-active .active .question, .player-active .active .answer,
+.game-over #new-game {
+  display: inline-block;
+}
+#promo, #disconnected {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  font-size: 10vmin;
+}
+#promo:before, #disconnected:before {
+  content: "";
+  height: 100%;
+  width: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+#promo div, #disconnected div {
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+#promo span, #disconnected span {
+  display: block;
+  margin: 3vmin;
+}
+#disconnected {
+  background: rgba(0,0,0,.7);
+  font-size: 6vmin;
+}
+#disconnected div {
+  padding: 5vmin 0;
+  background: white;
+}
+#disconnected.failed div {
+  background: red;
+  color: white;
+}
+#disconnected button,
+#register button {
+  font-size: 6vmin;
+  padding: 3vmin 10vmin;
+}
+#config {
+  padding: 10px;
+}
+#categories {
+  margin: 10px 0;
+  text-transform: capitalize;
+}
+#categories label input {
+  display: none;
+}
+#categories label div,
+#categories button {
+  margin: 2px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  width: 90px;
+  height: 70px;
+}
+#categories label div {
+  background: white;
+  white-space: nowrap;
+  overflow: hidden;
+  cursor: pointer;
+}
+#categories label div:hover {
+  background: #def;
+}
+#categories input:checked + div {
+  background: #082285;
+  color: white;
+}
+#categories label div:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 0;
+  vertical-align: middle;
+}
+#categories label span {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: normal;
+  padding: 0 2px;
+}
+#config #categories button {
+  padding: 0;
+  height: 70px;
+  color: black;
+  border: 0;
+}
+#board {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 80%;
+}
+.column {
+  width: 20%;
+  height: 100%;
+  display: inline-block;
+}
+.tile {
+  position: relative;
+  height: 16.66%;
+  text-align: center;
+  background: #082285;
+  color: #ebad62;
+  white-space: nowrap;
+  font-size: 4vw;
+}
+.tile:before {
+  content: "";
+  position: absolute;
+  top: .3vw;
+  bottom: .3vw;
+  left: .3vw;
+  right: .3vw;
+  background: rgba(255,255,255,.1);
+  border-radius: 1vw;
+}
+.tile:after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+  width: 0;
+}
+.tile a {
+  color: #ebad62;
+}
+.tile span {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: normal;
+  padding: 0 3%;
+}
+.tile.active {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 1;
+}
+.tile.active:before {
+  top: 2vw;
+  bottom: 2vw;
+  left: 2vw;
+  right: 2vw;
+  border-radius: 5vw;
+  z-index: -1;
+}
+.tile .question {
+  padding: 0 5%;
+}
+.tile.active .answer {
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  color: white;
+  font-size: 13px;
+}
+.tile.category {
+  color: white;
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+.pending-question .tile.unused:hover:before {
+  cursor: pointer;
+  background: rgba(255,255,255,.3);
+}
+#players {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20%;
+  height: 100%;
+  text-align: center;
+  background: #ececec;
+}
+.player {
+  background: white;
+  margin: 1vw;
+  padding: 1vw 0;
+  border-radius: 2vw;
+  font-size: 4vw;
+}
+.player.disconnected {
+  background: transparent;
+}
+.player.answering {
+  background: #ebad62;
+  color: white;
+}
+.player.incorrect {
+  background: red;
+  color: white;
+}
+.player .name {
+  font-size: 2vw;
+}
+#controls {
+  position: fixed;
+  background: white;
+  left: 0;
+  bottom: 0;
+  height: 50px;
+  width: 80%;
+  text-align: center;
+}
+#controls button {
+  margin: 10px 2%;
+  width: 30%;
+  height: 30px;
+}
+#info {
+  text-align: center;
+  background: #082285;
+  color: white;
+  padding: 10px 0;
+  font-size: 18px;
+}
+#register {
+  font-size: 8vmin;
+  padding-top: 30vh;
+  text-align: center;
+  background: #ececec;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+#register input {
+  width: 100%;
+  font-size: inherit;
+  text-align: center;
+  margin: 5vmin 0;
+  padding: 5vmin 0;
+  border: 0;
+  background: white;
+}
+#config button {
+  height: 30px;
+  padding: 0 30px;
+}
+#score {
+  font-size: 40px;
+}
+#waitlisted,
+#answering,
+#status-correct,
+#status-incorrect,
+#buzzer {
+  text-align: center;
+  padding-top: 25vh;
+  font-size: 15vmin;
+}
+#buzzer button {
+  margin-top: -20vh;
+  height: 50vh;
+  width: 90%;
+}
+.queued #buzzer button {
+  display: none;
+}
+#correct {
+  background: green;
+  color: white;
+}
+#incorrect {
+  background: red;
+  color: white;
+}
