@@ -1,0 +1,107 @@
+body {
+  font: 13px sans-serif;
+  max-width: 800px;
+  padding: 0 10px;
+  margin: 0 auto 200px;
+  -webkit-text-size-adjust: none;
+}
+a {
+  color: #33c;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+label > div {
+  margin-bottom: 2px;
+}
+.success, .error {
+  color: white;
+  padding: 5px 8px;
+  margin-bottom: 10px;
+  background: #3c3;
+}
+.error {
+  background: #c33;
+}
+.breadcrumbs li {
+  display: inline-block;
+  margin-right: 15px;
+}
+.breadcrumbs li:after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border: solid 1px #aaa;
+  border-width: 1px 1px 0 0;
+  transform: rotate(45deg) skew(10deg, 10deg);
+}
+.breadcrumbs li:last-child:after {
+  content: none;
+}
+.breadcrumbs a {
+  color: #999;
+  margin-right: 10px;
+}
+.list {
+  border-top: solid 1px #ddd;
+}
+.list li {
+  padding: 10px 0;
+  border-bottom: solid 1px #ddd;
+}
+.button {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #f0f0f0;
+  color: black;
+  text-decoration: none;
+}
+.button:hover {
+  background: #f5f5f5;
+  text-decoration: none;
+}
+#map {
+  height: 200px;
+  max-width: 400px;
+  margin-bottom: 10px;
+}
+#calendar {
+  margin: 10px -2px 8px 0;
+}
+#calendar .day {
+  position: relative;
+  display: inline-block;
+  vertical-align: bottom;
+  box-sizing: border-box;
+  border: solid white 2px;
+  border-width: 0 2px 2px 0;
+  background: #f7f7f7;
+  height: 300px;
+  width: 14.2857%;
+  padding: 2px;
+  font-size: 11px;
+}
+#calendar a.appt {
+  position: absolute;
+  display: block;
+  padding: 2px;
+  overflow: hidden;
+  left: 0;
+  right: 0;
+  background: rgba(51, 51, 204, .2);
+  color: #666;
+  text-decoration: none;
+}
+.right-menu {
+  float: right;
+}
