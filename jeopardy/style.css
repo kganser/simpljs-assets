@@ -9,8 +9,11 @@ button {
   font-size: inherit;
   border: none;
   background: #ccc;
-  box-shadow: 3px 3px 0 #888;
+  box-shadow: 3px 3px 0 rgba(0,0,0,.3);
   cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 button:hover {
   background: #cfcfcf;
@@ -27,22 +30,28 @@ button:active {
 select {
   border: none;
   padding: 5px 10px;
+  outline: none;
 }
-#config, #promo, #board, #controls, #pass, #correct, #incorrect,
-.tile.active .value, .tile.used .value,
+label {
+  user-select: none;
+  -webkit-user-select: none;
+}
+#config, #promo, main, #pass, #correct, #incorrect,
+.tile.used span, #question,
 .pending-config #players,
-.tile .question, .tile .answer, #new-game,
+.game-over #board,
+#new-game, #start-game, #end-game,
 #info, #register, #waitlisted, #buzzer, #answering, #status-correct, #status-incorrect,
 #disconnected, #disconnected.connecting button {
   display: none;
 }
 .pending-config #config,
 .pending-config #promo,
-.pending-players #board,
-.pending-question #board,
-.pending-answer #board, .pending-answer #controls,
-.player-active #board, .player-active #controls,
-.game-over #controls,
+.pending-start main,
+.pending-question main,
+.pending-answer main, .pending-answer #question,
+.player-active main, .player-active #question,
+.game-over #promo, .game-over main.host,
 .none #register,
 .waitlisted #info, .waitlisted #waitlisted,
 .playing #info,
@@ -55,10 +64,10 @@ select {
 #disconnected.connecting, #disconnected.countdown, #disconnected.failed {
   display: block;
 }
+.pending-start #start-game,
+.pending-question #end-game,
 .pending-answer #pass,
-.pending-answer .active .question, .pending-answer .active .answer,
 .player-active #correct, .player-active #incorrect,
-.player-active .active .question, .player-active .active .answer,
 .game-over #new-game {
   display: inline-block;
 }
@@ -86,6 +95,9 @@ select {
 #promo span, #disconnected span {
   display: block;
   margin: 3vmin;
+}
+.game-over #promo {
+  width: 80%;
 }
 #disconnected {
   background: rgba(0,0,0,.7);
@@ -155,12 +167,23 @@ select {
   color: black;
   border: 0;
 }
-#board {
+main {
+  background: #082285;
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 80%;
+}
+#board {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.host #board {
+  bottom: 50px;
 }
 .column {
   width: 20%;
@@ -171,10 +194,10 @@ select {
   position: relative;
   height: 16.66%;
   text-align: center;
-  background: #082285;
   color: #ebad62;
   white-space: nowrap;
   font-size: 4vw;
+  overflow: hidden;
 }
 .tile:before {
   content: "";
@@ -193,37 +216,46 @@ select {
   height: 100%;
   width: 0;
 }
-.tile a {
-  color: #ebad62;
-}
 .tile span {
   display: inline-block;
   vertical-align: middle;
   white-space: normal;
   padding: 0 3%;
 }
-.tile.active {
+#question {
   position: absolute;
+  background: #082285;
   top: 0;
   left: 0;
   right: 0;
-  height: 100%;
+  bottom: 0;
+  height: auto;
   z-index: 1;
+  transform-origin: top left;
 }
-.tile.active:before {
-  top: 2vw;
-  bottom: 2vw;
-  left: 2vw;
-  right: 2vw;
+#question a {
+  color: inherit;
+}
+.host #question {
+  bottom: 50px;
+}
+#question .tile {
+  height: 100%;
+}
+#question .tile:before {
+  top: 1.5vw;
+  bottom: 1.5vw;
+  left: 1.5vw;
+  right: 1.5vw;
   border-radius: 5vw;
   z-index: -1;
 }
-.tile .question {
+#question span {
   padding: 0 5%;
 }
-.tile.active .answer {
+#question .answer {
   position: absolute;
-  bottom: 60px;
+  bottom: 2.5vw;
   left: 0;
   right: 0;
   color: white;
@@ -234,7 +266,7 @@ select {
   font-size: 1.5vw;
   font-weight: bold;
 }
-.pending-question .tile.unused:hover:before {
+.pending-question .host .tile.unused:hover:before {
   cursor: pointer;
   background: rgba(255,255,255,.3);
 }
@@ -268,13 +300,31 @@ select {
 .player .name {
   font-size: 2vw;
 }
-#controls {
-  position: fixed;
-  background: white;
+.player input {
+  width: 100%;
+  text-align: center;
+  border: 0;
+  font-size: inherit;
+  background: transparent;
+  color: inherit;
+}
+#timer {
+  position: absolute;
   left: 0;
+  right: 0;
   bottom: 0;
-  height: 50px;
-  width: 80%;
+  height: 1.5vw;
+}
+#timer div {
+  margin: 0 auto;
+  height: 100%;
+  background: #ebad62;
+}
+#controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   text-align: center;
 }
 #controls button {
@@ -308,6 +358,7 @@ select {
   padding: 5vmin 0;
   border: 0;
   background: white;
+  outline: none;
 }
 #config button {
   height: 30px;
